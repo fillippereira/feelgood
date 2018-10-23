@@ -80,7 +80,7 @@ Route::post('/activity/add', 'ActivityController@store')->name('activity.submit'
 
 
 //Permissao------------------------------------------------------------------------
-Route::post('/permission', 'PermissionController@store')->name('permission.submit');
+Route::post('/permission', 'UserController@autorizaracesso')->name('permission.submit');
 
 
 
