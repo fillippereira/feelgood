@@ -61,7 +61,7 @@ class HumorController extends Controller
         $humor = Humor::findOrFail($request->id);
         $humor->name        = $request->name;
         $humor->path = $name;
-         $humor->owner       = Auth::user()->id;;;
+        $humor->owner       = Auth::user()->id;;;
         $humor->save();
         return redirect()->route('humor.index')->with('message', 'Humor atualizado com sucesso!');
     }
@@ -71,15 +71,15 @@ class HumorController extends Controller
         $name = $request->file->getClientOriginalName();
         $upload = $request->file->storeAs('humor', $name);
         
-        $aux = Humor::findOrFail($request->id);
-        $humor = new Humor;
-        $humor->name  = $aux->name;
-        $humor->path = $name;
-        $humor->owner       = Auth::user()->id;;
-        $humor->save();
+        $humor = Humor::findOrFail($request->id);
+        $novo_humor = new Humor;
+        $novo_humor->name  = $humor->name;
+        $novo_humor->path = $name;
+        $novo_humor->owner       = Auth::user()->id;;
+        $novo_humor->save();
 
         $exception = new HumorException;
-        $exception->name = $aux->name;
+        $exception->name = $humor->name;
         $exception->humor_id = $request->id;
         $exception->user_id = Auth::user()->id;
         $exception->save();

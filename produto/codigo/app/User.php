@@ -28,5 +28,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function therapist(){
+        return $this->belongsTo('App\Therapist');
+    }
   
 }

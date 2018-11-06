@@ -192,6 +192,14 @@ img {
                                 </div>
                             @endif
 
+                            @if(session()->has('error'))
+                                <div style="margin-top:2%" class="alert alert-danger">
+                                    {{ session()->get('error') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
                     <div class="card">
                         <div class="card-header">Adicionar Registro</div>
                         
@@ -206,7 +214,7 @@ img {
                                     <h6 style="color:gray;">Selecione seu humor abaixo.</h6>
                                 
                                     @foreach ( $humors as $humor )
-                                        <input class="radio-humor" type="radio" name="humor" id="{{ $humor->name }}" />
+                                        <input class="radio-humor" type="radio" name="humor" value="{{ $humor->name }}"  id="{{ $humor->name }}" />
                                         <label class="label-humor" for="{{ $humor->name }}">
                                             <img src="storage/humor/{{ $humor->path }}" title="{{ $humor->name }}">
                                             <label class="block">{{ $humor->name }}</label>
@@ -220,10 +228,10 @@ img {
                                     @foreach ( $feelings as $feeling )
                                         <div class="row" style="display:block;margin-left:0.3%">
                                             <label style="width:11%">
-                                                <input type="checkbox"  onclick="ShowInput(this)" name="sentimentos" value="{{ $feeling->name }}">
+                                                <input type="checkbox"  onclick="ShowInput(this)" name="sentimentos[]" value="{{ $feeling->id }}">
                                             {{ $feeling->name }}</label>
 
-                                            <input style="width:5%;display:none" class="form-control" disabled type="number" name="qtd_sentimento" max="10">
+                                            <input style="width:5%;display:none" class="form-control" disabled type="number" name="qtd_sentimento[]" max="10">
                                         </div>
                                     @endforeach
                                 </div>

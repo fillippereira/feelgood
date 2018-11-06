@@ -86,3 +86,7 @@ Route::post('/permission', 'UserController@autorizaracesso')->name('permission.s
 
 //Registro ------------------------------------------------------------------------
 Route::post('/create/register', 'RegisterController@store')->name('register.submit');
+
+/*Route::get('/teste', function () {
+    echo Auth::user()->therapist->email;
+});*/
