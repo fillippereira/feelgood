@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $registers = Register::where('user_id','=',Auth::user()->id)->get();
+        $registers = Register::with('registerFeeling')->where('user_id','=',Auth::user()->id)->get();
         
 
         $humors = Humor::whereNotIn('id', function($query) {

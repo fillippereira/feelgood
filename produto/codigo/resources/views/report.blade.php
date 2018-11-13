@@ -125,7 +125,6 @@ function intensidade(ref){
                                 <a class="dropdown-item" href="{{'/report/seven/'.Auth::User()->id}}">7 dias</a>
                                 <a class="dropdown-item" href="{{'/report/fifteen/'.Auth::User()->id}}">15 dias</a>
                                 <a class="dropdown-item" href="{{'/report/thirty/'.Auth::User()->id}}">30 dias</a>
-                            
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -154,14 +153,10 @@ function intensidade(ref){
         </nav>
 
         <div class="container" style="margin-top:2%">
-
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">Registros</div>
-                        
-                       
-                       
                         <div class="card-body">
                             <table class="table table-hover table-responsive-sm table-sm ">
                                 <thead>
@@ -178,11 +173,6 @@ function intensidade(ref){
                                 </thead>
                                 <tbody>
                                 @foreach ( $registers as $register )
-                                    
-                                <?/*php var_dump($registers);
-                                exit();*/ ?>
-                                
-                                  
                                     <tr  class="text-center">
                                         <td class="text-center">{{ $register->id }}</td>
                                         <td>{{ $register->humor->name }}</td>
@@ -209,141 +199,37 @@ function intensidade(ref){
                                         </td>
                                         <td>{{ $register->situation }}</td>
                                         <td>{{ $register->comportament }}</td>
-                                    
-                                                
-                                   
                                     </tr>
                                 @endforeach 
                                 </tbody>
                             </table>
-                       
-                            </div><!--card-body-->
-                         </div><!--card-->
-            
-<br>
-                        @if(session()->has('message'))
-                                <div style="margin-top:2%" class="alert alert-success">
-                                    {{ session()->get('message') }}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            @endif
-
-                            @if(session()->has('error'))
-                                <div style="margin-top:2%" class="alert alert-danger">
-                                    {{ session()->get('error') }}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            @endif
-                    <div class="card">
-                        <div class="card-header">Adicionar Registro</div>
-                        
-                        <div class="card-body">
-
-                        <div id="adicionar-registro">
-                            <label>{{ Auth::user()->name }}, como você se sente?</label>
-                            <form method="post" action="/create/register">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <div class="col-md-12 pull-left">
-                                <hr >
-                                    <h6 style="color:gray;">Selecione seu humor abaixo.</h6>
-                                
-                                    @foreach ( $humors as $humor )
-                                        <input class="radio-humor" type="radio" name="humor" value="{{ $humor->id }}"  id="{{ $humor->name }}" />
-                                        <label class="label-humor" for="{{ $humor->name }}">
-                                            <img src="storage/humor/{{ $humor->path }}" title="{{ $humor->name }}">
-                                            <label class="block">{{ $humor->name }}</label>
-                                        </label>
-                                     @endforeach
-                                </div>
-
-                                 <div class="col-md-12 pull-left">
-                                 <hr >
-                                    <h6 style="color:gray;">Selecione os sentimentos abaixo e quantifique-os.</h6>
-                                    @foreach ( $feelings as $feeling )
-                                        <div class="row" style="display:block;margin-left:0.3%">
-                                            <label style="width:11%">
-                                                <input type="checkbox"  onclick="ShowInput(this)" name="sentimentos[]" value="{{ $feeling->id }}">
-                                            {{ $feeling->name }}</label>
-
-                                            <input style="width:5%;display:none" class="form-control" disabled type="number" name="qtd_sentimento[]" max="10">
-                                        </div>
-                                    @endforeach
-                                </div>
-
-                                <div class="col-md-12 pull-left">
-                                <hr >
-                                    <h6 style="color:gray;">Selecione as atividades abaixo.</h6>
-                                    @foreach ( $activities as $activity )
-                                    <input class="check-activity" type="checkbox" name="activity" id="{{ $activity->name }}" />
-                                        <label class="label-activity" for="{{ $activity->name }}">
-                                        <img src="storage/activity/{{ $activity->path }}" title="{{ $activity->name }}">
-                                        <label class="block">{{ $activity->name }}</label>
-                                    </label>
-                                            
-                                    @endforeach
-                                </div>
-                                <div class="col-md-12 pull-left">  
-                                <hr >
-                                    <label style="display:block;color:gray;">Informe os pensamentos e selecione os mais fortes.</label>
-                                    <a href="javascript:void(0)" style="display:block" onclick="adicionarPensamento(this)">Adicionar pensamento</a>
-                                    <input type="text"style="display:inline-block" class="form-control col-md-4" name="pensamento[]">
-                                    <input type="checkbox" value="forte" onclick="intensidade(this)" style="margin-left:3%"name="qualificacao_pensamento[]">
-                                    <input type="checkbox" value="fraco" checked style="visibility:hidden;margin-left:3%"name="qualificacao_pensamento[]">
-                                </div>
-                                <div class="col-md-12 pull-left">
-                                    <label style="display:block;color:gray;">Informe a situação.</label>
-                                    <input type="text"style="display:inline-block" class="form-control col-md-4" name="situacao">
-                                </div>
-                                <div class="col-md-12 pull-left">
-                                    <label style="display:block;color:gray;">Informe o comportamento.</label>
-                                    <input type="text"style="display:inline-block" class="form-control col-md-4" name="comportamento">
-                                
-                                </div>
-                                    
-                                    <input type="submit" class="btn btn-success" value="Confirmar">
-                                </form>
-                            </div><!--adicionar registro-->
+                       </div><!--card-body-->
+                    </div><!--card-->
+                    <br>
+                    @if(session()->has('message'))
+                        <div style="margin-top:2%" class="alert alert-success">
+                            {{ session()->get('message') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                    </div>
+                    @endif
+                    @if(session()->has('error'))
+                        <div style="margin-top:2%" class="alert alert-danger">
+                            {{ session()->get('error') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
-        
-        </div>    
+       
         
      
 
-    <script>
-
-      
-    function ShowInput(ref)
-    {
-        var quantidade = $(ref).parent().next();
-        
-        if($(quantidade).css('display') == 'none'){
-            $(quantidade).show();
-            $(quantidade).prop('disabled',false);
-            $(quantidade).css('display','inline-block');
-        }
-        else{
-            $(quantidade).hide();
-            $(quantidade).prop('disabled',true);
-            
-        }
-        
-    }   
-
-    function adicionarPensamento(ref){
-        
-     $(' <input type="text" class="form-control col-md-4" style="display:inline-block;margin-bottom:1%"name="pensamento[]"> <input type="checkbox" value="forte" style="margin-left:3%"name="qualificacao_forte[]"><input type="checkbox" value="fraco" checked style="visibility:hidden;margin-left:3%"name="qualificacao_pensamento[]"><br>').insertAfter($(ref));
-    }
-
-
- </script>
+  
  
 <!---------------------------------------------------------------------------------------------->
 

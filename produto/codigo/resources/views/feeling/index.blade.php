@@ -62,9 +62,10 @@
                                     Relatórios<span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="">7 dias</a>
-                                <a class="dropdown-item" href="">15 dias</a>
-                                <a class="dropdown-item" href="">30 dias</a>
+                                <a class="dropdown-item" href="{{'/report/seven/'.Auth::User()->id}}">7 dias</a>
+                                <a class="dropdown-item" href="{{'/report/fifteen/'.Auth::User()->id}}">15 dias</a>
+                                <a class="dropdown-item" href="{{'/report/thirty/'.Auth::User()->id}}">30 dias</a>
+                            
                             </div>
                         </li>
                         <li class="nav-item dropdown">

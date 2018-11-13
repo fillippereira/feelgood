@@ -15,7 +15,10 @@ class UserController extends Controller
     }
     public function AutorizarAcesso(request $request)
     { 
+        $hasTherapist = Auth::User()->therapist;
         $therapist = Therapist::where('email',$request->email)->first();
+        
+       
         
         if(!$therapist) 
         {
@@ -24,7 +27,12 @@ class UserController extends Controller
         $user = Auth::User();
         $user->therapist()->associate($therapist);
         $user->update();
-        return redirect()->back()->with('message', 'Permisão concedida com sucesso! Agora seu terapeuta pode visualizar seus registros :)');
+        if($hasTherapist){
+            return redirect()->back()->with('message', 'Terapeuta atualizado com sucesso! Agora seu terapeuta pode visualizar seus registros :)');
+        }else
+        {
+            return redirect()->back()->with('message', 'Permisão concedida com sucesso! Agora seu terapeuta pode visualizar seus registros :)');
+        }
     }
 }
 

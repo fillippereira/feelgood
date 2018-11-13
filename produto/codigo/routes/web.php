@@ -90,3 +90,8 @@ Route::post('/create/register', 'RegisterController@store')->name('register.subm
 /*Route::get('/teste', function () {
     echo Auth::user()->therapist->email;
 });*/
+
+//Relatorios -------------------------------------------------------------------------------------
+Route::get('/report/seven/{id}', 'ReportController@seven');      
+Route::get('/report/fifteen/{id}', 'ReportController@fifteen');  
+Route::get('/report/thirty/{id}', 'ReportController@thirty');  
