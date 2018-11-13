@@ -10,5 +10,4 @@ class Register extends Model
     public function registerFeeling(){
         return $this->belongsToMany('App\RegisterFeeling');
     }
-  
 }
