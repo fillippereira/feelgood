@@ -91,7 +91,18 @@ Route::post('/create/register', 'RegisterController@store')->name('register.subm
     echo Auth::user()->therapist->email;
 });*/
 
-//Relatorios -------------------------------------------------------------------------------------
+//Relatorios usuario -------------------------------------------------------------------------------------
 Route::get('/report/seven/{id}', 'ReportController@seven');      
 Route::get('/report/fifteen/{id}', 'ReportController@fifteen');  
 Route::get('/report/thirty/{id}', 'ReportController@thirty');  
+
+//Relatorios terapeuta -------------------------------------------------------------------------------------
+Route::get('/conclusion/seven/{id}', 'TherapistController@seven');      
+Route::get('/conclusion/fifteen/{id}', 'TherapistController@fifteen');  
+Route::get('/conclusion/thirty/{id}', 'TherapistController@thirty');  
+
+//conclusao -------------------------------------------------------------------------------------
+Route::post('/conclusion', 'TherapistController@conclusion');      
+
+//strategy -------------------------------------------------------------------------------------
+Route::post('/strategy', 'TherapistController@strategy');   

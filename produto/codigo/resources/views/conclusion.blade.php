@@ -103,50 +103,22 @@ function intensidade(ref){
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                     
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Gerenciar<span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/humor">Humor</a>
-                                <a class="dropdown-item" href="/feeling">Sentimentos</a>
-                                <a class="dropdown-item" href="/activity">Atividades</a>
-                                
-                            </div>
-                        </li>
                       
-
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Relatórios<span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{'/report/seven/'.Auth::User()->id}}">7 dias</a>
-                                <a class="dropdown-item" href="{{'/report/fifteen/'.Auth::User()->id}}">15 dias</a>
-                                <a class="dropdown-item" href="{{'/report/thirty/'.Auth::User()->id}}">30 dias</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link " href="#" data-toggle="modal" data-target="#permission" v-pre>
-                                    Conceder Permissão<span class="caret"></span>
-                            </a>
-                           
-                        </li>
-                        <li class="nav-item dropdown">
+                            <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                {{Auth::guard("therapist")->user()->name}}
+                                    <span class="caret"></span>
+                                </a> 
+                           
+                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
                                 </a>
-                       
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    </form>
-                                </div>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                </form>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -204,10 +176,35 @@ function intensidade(ref){
                                 @endforeach 
                                 </tbody>
                             </table>
-                            <hr style="margin-top:5%;margin-bottom:2%">
-                            <h5>Estratégias Comportamentais</h5>
-                            <textarea class="form-control">{{$strategies->strategy}}</textarea>
                             
+                            <hr style="margin-top:5%;margin-bottom:2%">
+                            <form method="post" action="/conclusion/">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                           <input type="hidden" name="user_id" value="{{$id}}">
+                                <label>Conclusões</label>
+                                <textarea class="form-control" 
+                                name="conclusao">{{$conclusions->conclusion}}</textarea>
+                                
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-success btn-sm" value="Salvar">
+                               
+                            </div>
+                            </form>
+                            <hr style="margin-top:2%;margin-bottom:2%">
+                            <form method="post" action="/strategy/">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <input type="hidden" name="user_id" value="{{$id}}">
+                                <label>Estratégias Comportamentais</label>
+                                <textarea class="form-control" name="estrategia">{{$strategies->strategy}}</textarea>
+                                
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-success btn-sm" value="Salvar">
+                            </div>
+                            </form
                        </div><!--card-body-->
                     </div><!--card-->
                     <br>
@@ -234,39 +231,7 @@ function intensidade(ref){
         
      
 
-  
- 
-<!---------------------------------------------------------------------------------------------->
 
-<div class="modal" id="permission">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Conceder Permissão</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <form method="post" action="/permission" enctype="multipart/form-data">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-           
-            <div class="form-group">
-                <label for="name">Email do Terapeuta: <label>
-                <input type="text" class="form-control"  name="email">
-            </div>
-           
-            
-
-       
-        <input type="submit" class="btn btn-success" value="Confirmar">
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
 
 </body>
 </html>
